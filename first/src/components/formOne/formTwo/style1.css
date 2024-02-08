@@ -1,0 +1,52 @@
+.header{
+    display: flex;
+    gap: 30px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+h4{
+    margin: 10px 0;
+    font-size: 14px;
+}
+.gender{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+input{
+    padding: 15px 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+}
+.number{
+    display: flex;
+    gap: 10px;
+}
+.number input{
+    width: 100%;
+}
+select{
+    padding: 15px 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+}
+select:focus{
+    border: 1px solid #ef498f;
+    outline: none;
+    box-shadow: 0 0 5px rgba(239, 73, 143, 0.7);
+}
+.spn{
+    font-size: 13px;
+    opacity: 0.7;
+    margin: 10px 0;
+    color: black;
+}
+span{
+    color: red;
+}

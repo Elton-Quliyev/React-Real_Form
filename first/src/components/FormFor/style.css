@@ -1,0 +1,28 @@
+.btn-information{
+    
+    width: 100%;
+    border: none;
+    color: #fff;
+    background-color: #ef498f;
+    padding: 15px 10px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    margin-top: 30px;
+}
+
+.yarisi{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+.yarisi-state{
+
+    width: 155px;
+}
+.yarisi-zip{
+
+    width: 155px;
+    
+}

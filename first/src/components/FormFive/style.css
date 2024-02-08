@@ -1,0 +1,32 @@
+.coteyynr{
+    background-color: white;
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+        box-shadow: 0 0 5px rgba(192, 191, 191, 0.7);
+}
+
+.photo{
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.btn-website{
+    width: 100%;
+    border: none;
+    color: #fff;
+    background-color: #ef498f;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.tittle{
+    padding: 30px;
+}
+.text{
+    font-size: 40px;
+}

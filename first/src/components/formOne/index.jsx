@@ -3,38 +3,55 @@ import Apple from "../../assets/icon/Apple.png"
 import Facebook from "../../assets/icon/Facebook.png"
 import Google from "../../assets/icon/Google.png"
 import "./style.css"
+import Validate from "../../helpers";
 
-function FormOne({ onButtonClick }){
+function FormOne(){
 
-    const [email , setEmail] = useState("")
-    const [password , setPassword] = useState("")
-    const [checkbox , setCheckbox] = useState(true)
-    const [emailError , setEmailError] = useState("")
-    const [passwordError , setPasswordError] = useState("")
+    const [formData , setFormData] = useState({
+        email : '',
+        password : '',
+        check : ''
+    })
+
+    const [errors , setErrors] = useState({
+        email : '',
+        password : '',
+        check : true
+    })
 
 
+    const handleChange = (e) =>{
 
-    
-    const handleClick = (e)=>{
         e.preventDefault()
+        const { name, type, checked, value } = e.target;
+    
+        setFormData({
+          ...formData,
+          [name]: type === 'checkbox' ? checked : value
+        })
+    
 
-        if(email.trim()===''){
-            setEmailError("E-mail unvaninizi duzgun daxil edin")
-        }
-        if(password.trim()===''){
-            setPasswordError("Password hesabinizi duzgun daxil edin")
-        }
 
-        
-        const data = {
-            email,
-            password,
-            checkbox
-        }
-        console.log(data);
+
+        const error = Validate(name , value)
+
+        setErrors({
+            ...errors,
+            [name]:error
+        })
     }
 
 
+
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+
+        if(formData.email.length >0 && formData.password.length >0){
+                console.log(formData);
+        }else{
+            console.log("formu tam doldurun");
+        }
+    }
 
     return(
         <section>
@@ -48,21 +65,22 @@ function FormOne({ onButtonClick }){
                 <img src={Facebook} alt="facebook" />
                 <img src={Google} alt="google" />
             </div>
-            <form onSubmit={handleClick}>
+            <form onSubmit={handleSubmit}>
 
                 <div className="inpts">
 
-                    <input type="email" name="name" placeholder="Email adress" onChange={(e)=>{ setEmail(e.target.value); setEmailError("")}}/>
-                    {emailError && <span className="errorMessage">{emailError}</span>}
-                    <input type="password" name="name" placeholder=" Password" onChange={(e)=> {setPassword(e.target.value); setPasswordError("")}}/>
-                    {passwordError && <span className="errorMessage">{passwordError}</span>}
+                    <input type="email" name="email" placeholder="Email adress" onChange={handleChange}/>
+                    {errors.email &&<span>{errors.email} </span>}
+                    <input type="password" name="password" placeholder=" Password" onChange={handleChange}/>
+                    {errors.password &&<span>{errors.password} </span>}
+
                     
                 </div>
 
-                <button onClick={onButtonClick} className="form-btn" type="submit">Create accound</button>
+                <button  className="form-btn" type="submit">Create accound</button>
 
                 <div className="checkbox">
-                    <input type="checkbox" defaultChecked={true}  name="checkbox"  onChange={(e)=> setCheckbox(e.target.checked)}/>
+                    <input type="checkbox" defaultChecked={true}  name="check"  onChange={handleChange}/>
                     <label htmlFor="checkbox">Send me news and promotions</label>
                 </div>
                 

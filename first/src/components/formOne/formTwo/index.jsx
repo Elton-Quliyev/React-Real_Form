@@ -1,142 +1,136 @@
 import { useState } from "react";
-import "./style1.css"
+import "./style1.css";
+import Validate from "../../../helpers";
 
-const FormTwo = ()=>{
+const FormTwo = () => {
+  const [formData2, setFormData2] = useState({
+    name: "",
+    gender: "",
+    numberPrefix: "+994",
+    phoneNumber: "",
+    date: ""
+  });
 
-    const [name , setName]= useState('')
-    const [gender , setGender] = useState('')
-    const [select, setSelect] = useState('')
-    const [number, setNumber] = useState('')
-    const [date, setDate] = useState('')
+  const [errors2, setErrors2] = useState({
+    name: "",
+    gender: "",
+    phoneNumber: "",
+    date: ""
+  });
 
-    const [nameError , setNameError]= useState('')
-    const [genderError , setGenderError] = useState('')
-    const [selectError, setSelectError] = useState('')
-    const [numberError, setNumberError] = useState('')
-    const [dateError, setDateError] = useState('')
+  const handleChange = (e) => {
+    e.preventDefault();
 
+    const { name, value } = e.target;
 
-    const handleSubmit = (e)=> {
-        e.preventDefault()
+    setFormData2({
+      ...formData2,
+      [name]: value
+    });
 
+    let error= Validate(name,value)
 
-        if(name.trim()===''){
-            setNameError("Full nameni duzgun daxil edin")
-        }
-        if(gender.trim()===''){
-            setGenderError("Birini secmelisiniz !")
-        }
-        if(select.trim()===''){
-            setSelectError("Bir olke nomresi secin")
-        }
-        if(number.trim()===''){
-            setNumberError("Nomrenizi daxil edin")
-        }
-        if(date.trim()===''){
-            setDateError("Dogum gununuzu daxil edin")
-        }
+    setErrors2({
+        ...errors2,
+        [name]:error
+    })
+  };
 
-        const data = {
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-            name,
-            gender,
-            select,
-            number,
-            date
-
-
-
-        }
-        console.log(data);
+    if (
+      formData2.name.length > 0 &&
+      formData2.gender.length > 0 &&
+      formData2.phoneNumber.length > 0 &&
+      formData2.date.length > 0
+    ) {
+      console.log(formData2);
+    } else {
+      console.log("Formu tam doldurun");
     }
+  };
+
+  return (
+    <section>
+      <div className="container">
+        <div className="header">
+          <h2>Personal information</h2>
+          <h2 style={{ color: "green" }}>2 of 3</h2>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Full name"
+            onChange={handleChange}
+          />
+          {errors2.name && <span>{errors2.name}</span>}
+          <div className="gender">
+            <span>Gender:</span>
+
+            <input
+              type="radio"
+              name="gender"
+              value="Male"
+              onChange={handleChange}
+            />
+            <label htmlFor="gender">Male</label>
+
+            <input
+              type="radio"
+              name="gender"
+              value="Female"
+              onChange={handleChange}
+            />
+          {errors2.gender && <span>{errors2.gender}</span>}
+
+            <label htmlFor="gender">Female</label>
+          </div>
+
+          <h4>ⓘ The phone number and birthday are only visible to you</h4>
+
+          <div className="number">
+            <select
+              name="numberPrefix"
+              onChange={handleChange}
+              value={formData2.numberPrefix}
+            >
+              <option value="+994">+994</option>
+              <option value="+777">+777</option>
+              <option value="+0551">+0551</option>
+            </select>
+
+            <input
+              type="number"
+              name="phoneNumber"
+              placeholder="Phone number"
+              onChange={handleChange}
+            />
+          {errors2.phoneNumber && <span>{errors2.phoneNumber}</span>}
+
+          </div>
+          <input
+            type="date"
+            name="date"
+            placeholder="birthday"
+            onChange={handleChange}
+          />
+          {errors2.date && <span>{errors2.date}</span>}
 
 
-    
+          <span className="spn">
+            Let us know about your birthday so as not to miss a gift
+          </span>
 
-
-    return(
-
-        <section >
-
-            <div className="container" >
-                <div className="header">
-                    <h2>Personal information</h2>
-                    <h2 style={{color:"green"}}>2 of 3</h2>
-                </div>
-
-                <form onSubmit={handleSubmit}>
-                    <input 
-                        type="text" 
-                        name="name" 
-                        placeholder="Full name" 
-                        onChange={
-                            (e) =>{ setName(e.target.value); setNameError("")}}
-                        />
-                    {nameError && <span>{nameError}</span>}
-                    <div className="gender">
-
-                        <span >Gender:</span>
-
-                        <input 
-                            type="radio"  
-                            name="gender"
-                            value="Male"
-                            onChange={(e)=> {setGender(e.target.value); setGenderError("")}}/>
-                        <label htmlFor="gender">Male</label>
-
-
-                        <input 
-                            type="radio"  
-                            name="gender"
-                            value="Female"
-
-                            onChange={(e)=>{ setGender(e.target.value); setGenderError("")}}/>
-                        <label htmlFor="gender">Female</label>
-
-
-                    </div>
-                    {genderError && <span>{genderError}</span>}
-
-
-                    <h4>ⓘ The phone number and birthday are only visible to you</h4>
-
-
-
-                    <div className="number">
-                        <select  onChange={(e)=> {setSelect(e.target.value); setSelectError("")}}>
-                            <option value="+994">+994</option>
-                            <option value="+777">+777</option>
-                            <option value="+0551">+0551</option>
-                        </select>
-                        
-
-                        <input 
-                            type="number"  
-                            name="number" 
-                            placeholder="Phone number"
-                            onChange={(e)=>{ setNumber(e.target.value); setNumberError("")}}/> 
-
-                    </div>
-                        {  numberError && <span>{numberError}</span>}
-                    <input 
-                        type="date" 
-                        name="date"  
-                        placeholder="birthday"
-                        onChange={(e) => {setDate(e.target.value); setDateError("")}}/>
-                        {dateError && <span>{dateError}</span>}
-
-
-                    <span className="spn">Let us know about your birthday so as not to miss a gift</span>
-
-                    <button className="form-btn" type="submit">Save information</button>
-
-                </form>
-            </div>
-
-        </section>
-
-
-    )
-}
+          <button className="form-btn" type="submit">
+            Save information
+          </button>
+        </form>
+      </div>
+    </section>
+  );
+};
 
 export default FormTwo;
